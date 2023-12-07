@@ -13,6 +13,7 @@ import Register from './componentes/Register';
 import PageNotFound from './componentes/PageNotFound';
 import Footer from './componentes/Footer';
 
+
 const App = () => {
   const [user, setUser] = useState(null);
 
