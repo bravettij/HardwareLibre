@@ -24,13 +24,15 @@ const MyPublications = () => {
           ...doc.data()
         }));
 
+
+        
         setMisPublicaciones(misPublicaciones);
       }
     };
-
+    
     obtenerMisPublicaciones();
   }, [usuarioActual]);
-
+  
   const mostrarDetalle = (dato) => {
     setDetalle(dato);
     const modal = new Modal(document.getElementById('detalleModal'));

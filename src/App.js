@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';import Header from './componentes/Header';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Header from './componentes/Header';
 import SellForm from './componentes/SellForm';
 import Publications from './componentes/Publications';
 import Login from './componentes/Login';
 import MyPublications from './componentes/MyPublications';
 import FavoritePublications from './componentes/FavoritePublications';
-import PublicationDetail from './componentes/PublicationDetails';
 import { auth } from './firebase';
 import Home from './componentes/Home';
 import Register from './componentes/Register';
+import PageNotFound from './componentes/PageNotFound';
+import Footer from './componentes/Footer';
+
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -40,10 +43,9 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div style={{ minHeight: '87vh' }}>
         {/* Header siempre visible, independientemente de la ruta */}
         <Header user={user} handleLogout={handleLogout} />
-
         <Routes>
           {/* Página principal - Redirecciona a /login si no está autenticado */}
           <Route
@@ -53,15 +55,18 @@ const App = () => {
 
           {/* Resto de las rutas */}
           <Route path="/home" element={<Home />} />
-          <Route path="/sell" element={<SellForm />} />
-          <Route path="/publications" element={<Publications />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/my-publications" element={<MyPublications />} />
-          <Route path="/favorite-publications" element={<FavoritePublications />} />
-          <Route path="/publication/:id" element={<PublicationDetail />} />
+          <Route path="/login" element={user ? <Navigate to="/publications" /> : <Login />} />
+          <Route path="/register" element={user ? <Navigate to="/publications" /> : <Register />} />
+          <Route path="*" element={<PageNotFound/>} />
+          {/* Rutas protegidas */}
+          <Route path="/sell" element={!user ? <Navigate to="/login" /> : <SellForm />} />
+          <Route path="/publications" element={!user ? <Navigate to="/login" /> : <Publications/>} />
+          <Route path="/my-publications" element={!user ? <Navigate to="/login" /> : <MyPublications />} />
+          <Route path="/favorite-publications" element={!user ? <Navigate to="/login" /> : <FavoritePublications />} />
         </Routes>
+        <div style={{ marginBottom: '20px' }}></div>
       </div>
+        <Footer/>
     </Router>
   );
 };

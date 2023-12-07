@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import {  createUserWithEmailAndPassword   } from 'firebase/auth';
+import {collection, addDoc} from 'firebase/firestore';
 import {updateProfile} from 'firebase/auth'
 
 
@@ -12,6 +13,7 @@ const Register = () => {
     const [lastName, setLastName] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const usersCollection = collection (db, "users")
   
     const handleRegister = async (e) => {
       e.preventDefault();
@@ -19,8 +21,15 @@ const Register = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        const userId = auth.currentUser.uid;
+        addDoc(usersCollection, {   
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          userid: userId,
+        })
         console.log(user);
-        navigate("/login")
+        navigate("/publications")
         // ...
       })
       

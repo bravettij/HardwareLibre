@@ -4,6 +4,8 @@ import { db } from '../firebase';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa el CSS de Bootstrap
 import {  Modal } from 'bootstrap';
 
+const defaultImageURL = 'https://firebasestorage.googleapis.com/v0/b/tpfinalcui.appspot.com/o/files%2Fimagen%20no%20encontrada.jpg?alt=media&token=755f79ee-d7ea-4c4e-8222-522b5e6d1df6';
+
 
 const Publications = () => {
   const [datos, setDatos] = useState([]);
@@ -72,10 +74,11 @@ const Publications = () => {
       <div key={dato.id} className="col">
         <div className="card h-100" onClick={() => mostrarDetalle(dato)}>
           <img
-            src={dato.imageUrl}
+            src={dato.imageUrl || defaultImageURL}
             className="card-img-top img-fluid"
             alt="Producto"
             style={{ objectFit: 'cover', maxHeight: '70%' , minHeight: '70%' }}
+            onError={(e) => {e.target.src = defaultImageURL; }}
           />
           <div className="card-body">
             <h5 className="card-title" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -98,7 +101,7 @@ const Publications = () => {
             <div className="modal-body">
               {detalle && (
                 <>
-                  <img src={detalle.imageUrl} className="img-fluid mb-3" alt="Producto Detalle" />
+                  <img src={detalle.imageUrl || defaultImageURL} className="img-fluid mb-3" style={{ width: '100%' }} alt="Producto Detalle" onError={(e) => {e.target.src = defaultImageURL; }}/>
                   <p><strong>Nombre del Producto:</strong> {detalle.productName}</p>
                   <p><strong>Tipo de Producto:</strong> {detalle.productType}</p>
                   <p><strong>Descripción:</strong> {detalle.description}</p>
