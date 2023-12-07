@@ -166,6 +166,7 @@ function SellForm(){
               <input
                 type="text"
                 className={`form-control ${contactError ? 'is-invalid' : ''}`}
+
                 id="contactNumber"
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
@@ -184,6 +185,7 @@ function SellForm(){
                 required
               />
               {valueError && <div className="invalid-feedback">El valor debe ser un número mayor que 0 y menor o igual a 9999999.</div>}
+
             </div>
             <div className="mb-3">
               <label htmlFor="currency" className="form-label">Moneda:</label>

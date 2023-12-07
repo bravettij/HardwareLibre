@@ -24,6 +24,7 @@ const MyPublications = () => {
           ...doc.data()
         }));
 
+
         
         setMisPublicaciones(misPublicaciones);
       }
@@ -37,7 +38,6 @@ const MyPublications = () => {
     const modal = new Modal(document.getElementById('detalleModal'));
     modal.show();
   };
-
 
   const eliminarPublicacion = async (publicacionId) => {
     // Muestra una ventana de confirmación

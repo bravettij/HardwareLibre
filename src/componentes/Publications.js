@@ -6,6 +6,7 @@ import {  Modal } from 'bootstrap';
 
 const defaultImageURL = 'https://firebasestorage.googleapis.com/v0/b/tpfinalcui.appspot.com/o/files%2Fimagen%20no%20encontrada.jpg?alt=media&token=755f79ee-d7ea-4c4e-8222-522b5e6d1df6';
 
+
 const Publications = () => {
   const [datos, setDatos] = useState([]);
   const [detalle, setDetalle] = useState(null);
